@@ -45,9 +45,6 @@ class MatrixService{
                 if(matrix[i][j] == 1){
                     list[i].push(j+1);
                 }
-                if(array[i].length > param/2){
-                    break;
-                }
             }
         }
 
