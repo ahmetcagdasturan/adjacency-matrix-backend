@@ -3,18 +3,35 @@ class MatrixService{
     createRandomAdjacencyMatrix(param) {
         var array = this.create2DArrayWithZeros(param);
         var randValue = 0;
+        var totalZeroInOneNode = 0;
 		for(var i=0;i<param;i++) {
-			for(var j=i;j<param;j++) {
-				
-				randValue = Math.round(Math.random());
-				array[i][j] = randValue;
-				array[j][i] = randValue;
+            totalZeroInOneNode = 0;
+			for(var j=0;j<param;j++) {
+                if(j>=i){
 
-                if(i == j) {
-					array[i][j] = 0;
-				}
+                    if(totalZeroInOneNode == Math.round((param-1)/2)){
+                        break;
+                    }
+
+                    randValue = Math.round(Math.random());
+                    totalZeroInOneNode = randValue == 0 ? totalZeroInOneNode + 1 : totalZeroInOneNode;
+                    array[i][j] = randValue;
+                    array[j][i] = randValue;
+
+                    if(i == j) {
+                        array[i][j] = 0;
+                        totalZeroInOneNode = randValue == 1 ? totalZeroInOneNode + 1 : totalZeroInOneNode;
+                    }
+                    
+                    
+                }else{
+                    if(array[i][j]==0){
+                        totalZeroInOneNode +=1
+                    }
+                }
             }
-		}
+        }
+        console.log(array)
         return array;
     }
 
@@ -23,7 +40,7 @@ class MatrixService{
         for(var i = 0; i < rows; ++i) {
             arr.push([]);
             for(var j = 0; j < rows; ++j) {
-                arr[i].push(0); 
+                arr[i].push(1); 
             }
         }
         return arr;
