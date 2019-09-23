@@ -1,26 +1,36 @@
 class MatrixService{
 
     createRandomAdjacencyMatrix(param) {
-        var array = this.create2DArrayWithZeros(param);
-        var nodeRelationCounts = [];
-        var maxRelationCount = Math.floor(param/2);
+        var flag = true;
+        while(flag){
+            var array = this.create2DArrayWithZeros(param);
+            var nodeRelationCounts = [];
+            var maxRelationCount = Math.floor(param/2);
 
-        for(var m=0;m<param;m++){
-            nodeRelationCounts.push(0);
-        }    
-		for(var i=0;i<param;i++) {
-			for(var j=0;j<i;j++) {
-                if(nodeRelationCounts[i]< maxRelationCount && nodeRelationCounts[j]<maxRelationCount){
-                    var randValue = Math.round(Math.random());
-                    array[i][j] = randValue;
-                    array[j][i] = randValue;
-                    if(randValue==1){
-                       nodeRelationCounts[i]++;
-                       nodeRelationCounts[j]++;
+            for(var m=0;m<param;m++){
+                nodeRelationCounts.push(0);
+            }    
+            for(var i=0;i<param;i++) {
+                for(var j=0;j<i;j++) {
+                    if(nodeRelationCounts[i]< maxRelationCount && nodeRelationCounts[j]<maxRelationCount){
+                        var randValue = Math.round(Math.random());
+                        array[i][j] = randValue;
+                        array[j][i] = randValue;
+                        if(randValue==1){
+                        nodeRelationCounts[i]++;
+                        nodeRelationCounts[j]++;
+                        }
                     }
                 }
             }
+            flag = false;
+            for(var i=0; i<nodeRelationCounts.length; i++){
+                if(nodeRelationCounts[i] <= 1){
+                    flag = true;
+                }
+            }
         }
+        
         console.log(array)
         return array;
     }
